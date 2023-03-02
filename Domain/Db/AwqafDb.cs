@@ -1,11 +1,6 @@
 ﻿using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Db;
 
@@ -32,7 +27,8 @@ public class AwqafDb : DbContext
     {
         base.OnConfiguring(optionsBuilder);
 
-        optionsBuilder.UseSqlServer($"Data Source=.;Initial Catalog={nameof(AwqafDb)};Trusted_Connection=true");
+        if (!optionsBuilder.IsConfigured)
+            optionsBuilder.UseSqlServer($"Data Source=.;Initial Catalog={nameof(AwqafDb)};Trusted_Connection=true");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
